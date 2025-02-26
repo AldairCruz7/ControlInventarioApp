@@ -1,10 +1,10 @@
-import UsersComponent from "./components/UsersComponent";
+import ListUsers from "./components/ListUsers.tsx";
 
 
 const UserScreen = () => {
     return (
         <>
-            <UsersComponent/>
+            <ListUsers/>
         </>
     );
 };
