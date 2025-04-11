@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import {apiRequest} from "../services/apiRequest.ts";
 
 export type SessionStatus = "loggedIn" | "noSession" | "expired" | "closed";
 
@@ -12,6 +13,13 @@ interface SessionStore {
     expireSession: () => void;
     clearSession: () => void;
     validateToken: () => Promise<void>;
+   /* user: {
+        id: string;
+        name: string;
+        role: "ADMIN" | "EMPLOYEE";
+        email: string;
+
+    } | null;*/
 }
 
 export const useSessionStore = create<SessionStore>((set, get) => ({
@@ -60,29 +68,22 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
         console.log("🔄 4 - Token encontrado, validando con backend...");
 
         try {
-            const response = await fetch("http://localhost:8080/auth/validate", {
+            const data = await apiRequest("/auth/validate", {
                 method: "GET",
-                headers: { Authorization: `Bearer ${token}` },
             });
 
-            const data = await response.json().catch(() => null);
             console.log("📩 5 - Respuesta del backend:", data);
 
-            if (response.ok) {
-                setStatus("loggedIn");
-                set({ isTokenChecked: true });
-                console.log("✅ 6 - Token válido, sesión activa");
-            } else {
-                console.log("⚠️ 7 - Token inválido o expirado");
-                expireSession();
-                set({ isTokenChecked: true });
-            }
+            setStatus("loggedIn");
+            set({ isTokenChecked: true });
+            console.log("✅ 6 - Token válido, sesión activa");
         } catch (error) {
-            console.error("❌ 8 - Error validando token:", error);
+            console.error("❌ 7 - Error validando token:", error);
             expireSession();
             set({ isTokenChecked: true });
         }
     },
+
 }));
 
 export default useSessionStore;

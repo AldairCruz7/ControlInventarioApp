@@ -1,9 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { getUsers } from "../services/UserService.ts";
 import { closeNotification, showNotification } from "../../Components/Notification/CommonNotification.tsx";
-import { Button, Box } from "@mui/material";
+import {Button, Box} from "@mui/material";
 import CommonTable from "../../Components/tables/commonTable.tsx";
 import {RegisterUser} from "./RegisterUser.tsx";
+import AddIcon from "@mui/icons-material/Add";
+import UpdateIcon from "@mui/icons-material/Update";
+
 
 const ListUsers = () => {
     const [users, setUsers] = useState([]);
@@ -55,16 +58,20 @@ const ListUsers = () => {
                     variant="contained"
                     color="primary"
                     onClick={getAllUsers}
+                    startIcon={<UpdateIcon />}
                 >
                     Actualizar
                 </Button>
+
                 <Button
-                    variant="contained"
+                    variant="outlined"
                     color="primary"
-                    onClick={ () => setOpenModal(true)}
+                    onClick={() => setOpenModal(true)}
+                    startIcon={<AddIcon />}
                 >
-                    AGREGAR
+                    Agregar
                 </Button>
+
 
             </Box>
             {loading ? <p>Cargando...</p> : <CommonTable data={users} />}

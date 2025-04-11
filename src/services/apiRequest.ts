@@ -1,16 +1,18 @@
 import { useSessionStore } from "../store/useSessionStore";
 
+const baseUrl = import.meta.env.VITE_API_URL;
+
 export const apiRequest = async (endpoint: string, options: RequestInit = {}) => {
     const { token, expireSession } = useSessionStore.getState();
-
-    const isLogin = endpoint.includes("/auth/login");
+    console.log('baseUrl', baseUrl)
+    const isLogin = endpoint.includes("auth/login");
     const headers: HeadersInit = {
         "Content-Type": "application/json",
         ...(token && !isLogin ? { Authorization: `Bearer ${token}` } : {}),
     };
 
     try {
-        const response = await fetch(`http://localhost:8080${endpoint}`, {
+        const response = await fetch(`${baseUrl}${endpoint}`, {
             ...options,
             headers,
         });

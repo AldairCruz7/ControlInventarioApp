@@ -8,6 +8,7 @@ import {InventoryScreen} from "../Pages/private/Inventory/InventoryScreen.tsx";
 import {SuppliersScreen} from "../Pages/private/Suppliers/SuppliersScreen.tsx";
 import DepartmentScreen from "../Pages/private/Deparments/DepartmentScreen.tsx";
 import UserScreen from "../Pages/private/Users/UserScreen";
+import Layout from "../Pages/private/Components/Layout.tsx";
 
 const AppRoutes = () => {
     const { status, isTokenChecked } = useSessionStore();
@@ -15,7 +16,7 @@ const AppRoutes = () => {
         return <div>Cargando sesión...</div>;
     }
 
-    return (
+    return ( 
         <Routes>
             <Route
                 path="/login"
@@ -23,11 +24,13 @@ const AppRoutes = () => {
             />
 
             <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/Inventory" element={<InventoryScreen/>}/>
-                <Route path="/Suppliers" element={<SuppliersScreen/>}/>
-                <Route path="/Deparment" element={<DepartmentScreen/>} />
-                <Route path="/Users" element={<UserScreen/>} />
+                <Route element={<Layout />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/Inventory" element={<InventoryScreen />} />
+                    <Route path="/Suppliers" element={<SuppliersScreen />} />
+                    <Route path="/Deparment" element={<DepartmentScreen />} />
+                    <Route path="/Users" element={<UserScreen />} />
+                </Route>
             </Route>
 
             <Route path="*" element={<NotFound />} />

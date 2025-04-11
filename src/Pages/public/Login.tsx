@@ -10,7 +10,10 @@ const Login = () => {
         try {
             const response = await apiRequest("/auth/login", {
                 method: "POST",
-                body: JSON.stringify({ username: "Aldair Cruz" }),
+                body: JSON.stringify({
+                    username: "Aldair Cruz",
+                    password: "admin123"
+                }),
             });
 
             if (response.token) {

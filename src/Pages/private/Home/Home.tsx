@@ -1,12 +1,23 @@
-import { Container, Typography } from '@mui/material';
+import {Box, Button, Typography} from '@mui/material';
+import {useEffect} from "react";
 
 const Home = () => {
+
+    useEffect(() => {
+
+    }, []);
     return (
-        <Container>
-            <Typography variant="h4" gutterBottom>
-                Dashboard Principal
-            </Typography>
-        </Container>
+
+            <Box>
+                <Typography variant="h2">Bienvenido @USER</Typography>
+                <Typography variant="body1">
+                    Aquí puedes consultar el inventario y tus proveedores.
+                </Typography>
+                <Button variant="contained" color="primary">
+                    Ver inventario
+                </Button>
+            </Box>
+
     );
 };
 

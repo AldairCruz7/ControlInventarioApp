@@ -10,11 +10,15 @@ import {
     FormControl, InputLabel, Select, MenuItem, FormHelperText
 } from "@mui/material";
 import { useState } from "react";
-
-export const RegisterUser = ({ open, handleClose, handleAccept }) => {
+type RegisterUserProps = {
+    open: boolean;
+    handleClose: () => void;
+    handleAccept: () => void;
+};
+export const RegisterUser = ({ open, handleClose, handleAccept }: RegisterUserProps) =>{
     const [role, setRole] = useState('');
 
-    const handleChange = (event) => {
+    const handleChange = (event : any) => {
         setRole(event.target.value);
     };
 

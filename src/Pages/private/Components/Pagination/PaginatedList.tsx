@@ -13,7 +13,7 @@ const PaginatedList: React.FC = () => {
             setData([`Item ${pageNumber * 1}`, `Item ${pageNumber * 2}`, `Item ${pageNumber * 3}`]);
 
             if (toastId) {
-                closeNotification(toastId);
+                closeNotification();
             }
 
             showNotification("success", `Página ${pageNumber} cargada con éxito 🎉`);
