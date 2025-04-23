@@ -1,8 +1,10 @@
+import ListDepartments from "./Components/ListDepartments.tsx";
+
+
 const DepartmentScreen = () => {
     return (
         <>
-            <>Departamento Screen</>
-
+            <ListDepartments/>
         </>
     );
 };

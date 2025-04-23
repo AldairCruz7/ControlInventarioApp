@@ -1,23 +1,22 @@
 import * as React from "react";
 import { useState } from "react";
-import { getUsers } from "../services/UserService.ts";
 import ListModule from "../../Components/tables/ListModuleProps.tsx";
-import {RegisterUser} from "./RegisterUser.tsx";
+import {getDepartments} from "../services/DepartmentService.ts";
+import {RegisterDepartment} from "./RegisterDepartment.tsx";
 
-const ListUsers = () => {
+const ListDepartments = () => {
     const [open, setOpen] = useState(false);
 
     const modalContent = (): React.JSX.Element | null => {
-
         return(
-            <RegisterUser open={open} handleClose={() => setOpen(false)} />
+            <RegisterDepartment open={open} handleClose={() => setOpen(false)} />
         )
     }
 
     return (
         <ListModule
-            title="Usuarios"
-            fetchFunction={getUsers}
+            title="Departamentos"
+            fetchFunction={getDepartments}
             onOpenModal={() => setOpen(true)}
             modalComponent={
                 open ? modalContent() : null
@@ -26,4 +25,4 @@ const ListUsers = () => {
     );
 };
 
-export default ListUsers;
+export default ListDepartments;

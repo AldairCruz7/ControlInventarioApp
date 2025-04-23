@@ -1,7 +1,6 @@
 import {
     Home,
     Inventory,
-    PersonPin,
     LocationCity,
     AccountCircle,
     Logout,
@@ -22,9 +21,13 @@ import {
     Collapse,
     Typography,
 } from "@mui/material";
+import GroupsIcon from '@mui/icons-material/Groups';
 import {JSX, useState} from "react";
 import { Link, useLocation } from "react-router-dom";
 import useSessionStore from "../../../store/useSessionStore";
+import BadgeIcon from '@mui/icons-material/Badge'
+import PeopleIcon from '@mui/icons-material/People';
+
 
 interface SidebarProps {
     collapsed: boolean;
@@ -46,10 +49,10 @@ export default function Sidebar({ collapsed, toggleCollapse }: SidebarProps) {
 
     const menuItems: MenuItemConfig[] = [
         { icon: <Home />, text: "Dashboard", path: "/" },
-        { icon: <PersonPin />, text: "Proveedores", path: "/Suppliers" },
+        { icon: <BadgeIcon />, text: "Proveedores", path: "/Suppliers" },
         { icon: <Inventory />, text: "Inventario", path: "/Inventory" },
         { icon: <LocationCity />, text: "Departamentos", path: "/Deparment" },
-        { icon: <PersonPin />, text: "Usuarios", path: "/Users" },
+        { icon: <PeopleIcon />, text: "Usuarios", path: "/Users" },
     ];
 
     const profileItems: MenuItemConfig[] = [
@@ -144,6 +147,40 @@ export default function Sidebar({ collapsed, toggleCollapse }: SidebarProps) {
                 ))}
             </List>
 
+            {/*Empieza lista usuarios*/}
+            <List>
+                <ListItemButton
+                    onClick={() => setOpenProfile(!openProfile)}
+                    sx={{
+                        justifyContent: collapsed ? "center" : "flex-start",
+                        px: 2,
+                        py: 1,
+                    }}
+                >
+                    <ListItemIcon
+                        sx={{
+                            minWidth: collapsed ? "auto" : 40,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            display: "flex",
+                        }}
+                    >
+                        <GroupsIcon />
+                    </ListItemIcon>
+                    {!collapsed && <ListItemText primary="Personal" />}
+                    {!collapsed && (openProfile ? <ExpandLess /> : <ExpandMore />)}
+                </ListItemButton>
+                <Collapse in={openProfile} timeout="auto" unmountOnExit>
+                    {profileItems.map((item) => (
+                        <Tooltip title={item.text} placement="left">
+                            <Box key={item.text} pl={collapsed ? 0 : 4}>
+                                {renderItem(item)}
+                            </Box>
+                        </Tooltip>
+                    ))}
+                </Collapse>
+            </List>
+
             <List>
                 {!collapsed && (
                     <Typography variant="caption" px={2}>
@@ -167,17 +204,19 @@ export default function Sidebar({ collapsed, toggleCollapse }: SidebarProps) {
                             display: "flex",
                         }}
                     >
-                        <AccountCircle />
+                        <Settings />
                     </ListItemIcon>
-                    {!collapsed && <ListItemText primary="Perfil" />}
+                    {!collapsed && <ListItemText primary="Ajustes" />}
                     {!collapsed && (openProfile ? <ExpandLess /> : <ExpandMore />)}
                 </ListItemButton>
 
                 <Collapse in={openProfile} timeout="auto" unmountOnExit>
                     {profileItems.map((item) => (
-                        <Box key={item.text} pl={collapsed ? 0 : 4}>
-                            {renderItem(item)}
-                        </Box>
+                        <Tooltip title={item.text} placement="left">
+                            <Box key={item.text} pl={collapsed ? 0 : 4}>
+                                {renderItem(item)}
+                            </Box>
+                        </Tooltip>
                     ))}
                 </Collapse>
 
